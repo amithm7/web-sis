@@ -59,3 +59,20 @@ app.get('/dashboard', function (req, res) {
 		return res.status(200).sendFile('app.html', { root: __dirname + '/app' });
 	}
 });
+
+/* API */
+// Login
+app.post('/api/login', function (req, res) {
+	if (req.body.username == "admin" && req.body.password == "admin") {
+		req.session.user = req.body.username;
+		res.redirect('/dashboard');
+	} else {
+		res.redirect('back');	// Back 1 page
+	}
+});
+
+// Logout
+app.get('/api/logout', function (req, res) {
+	req.session.destroy();
+	res.redirect('/');
+});
