@@ -1,0 +1,13 @@
+.welcome {
+	padding: 1em;
+	text-align: center;
+}
+
+.entryForm {
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+.form-actions {
+	text-align: center;
+}
