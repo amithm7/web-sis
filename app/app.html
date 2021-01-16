@@ -5,13 +5,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Student Information System - Dashboard</title>
 
-	<link rel="stylesheet" href="static/css/common.css">
-	<link rel="stylesheet" href="static/css/app.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 		crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="static/css/common.css">
+	<link rel="stylesheet" href="static/css/app.css">
 </head>
 <body>
 	<ul class="nav nav-tabs">
@@ -35,7 +35,7 @@
 		<div class="tab-pane fade show active" id="add-student" role="tabpanel">
 			<h2 class="text-center display-2" >Add a new Student</h2>
 			<section class="add-student">
-				<form class="row g-3">
+				<form class="row g-3 mx-3">
 					<div class="col-md-6">
 						<label class="form-label">First Name</label>
 						<input type="text" class="form-control" name="firstName">
@@ -90,6 +90,52 @@
 		</div>
 		<div class="tab-pane fade" id="add-marks" role="tabpanel">
 			<h2 class="text-center display-2">Enter Marks of a Student</h2>
+			<section class="add-marks">
+				<form class="row g-3 add-marks-search mx-3">
+					<label class="col-md-3 col-form-label">Enter Student ID:</label>
+					<div class="col-md-7">
+						<input type="number" class="col-md-8 form-control" name="id">
+					</div>
+					<button type="submit" class="col-md-2 btn btn-primary">Search</button>
+					<div class="col-md-12 error-msg hidden text-center">
+						<p>Student Not found!</p>
+					</div>
+				</form>
+				<from class="add-marks-form row g-3 hidden m-3">
+					<div class="col-md-5">
+						<div class="input-group">
+							<span class="input-group-text">First Name</span>
+							<input type="text" class="form-control" disabled name="firstName">
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="input-group">
+							<span class="input-group-text">Last Name</span>
+							<input type="text" class="form-control" disabled name="lastName">
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="input-group">
+							<input type="text" class="form-control" disabled name="sex" placeholder="Sex">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="input-group">
+							<span class="input-group-text">Marks Obtained</span>
+							<input type="number" class="form-control" name="marksObtained">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="input-group">
+							<span class="input-group-text">Marks Total</span>
+							<input type="number" class="form-control" name="marksTotal">
+						</div>
+					</div>
+					<div class="col-md-12 text-center">
+						<button type="submit" class="btn btn-primary">Enter</button>
+					</div>
+				</from>
+			</section>
 		</div>
 	</div>
 </body>

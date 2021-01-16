@@ -1,8 +1,16 @@
+.hidden {
+	display: none;
+}
+
+.error-msg {
+	color: orangered;
+}
+
 .logoutForm {
 	margin-left: auto;
 }
 
-.add-student {
+.add-student, .add-marks {
 	max-width: 800px;
 	padding: 10px;
 	margin: 0 auto;
