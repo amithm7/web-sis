@@ -1,3 +1,11 @@
 .logoutForm {
 	margin-left: auto;
 }
+
+.add-student {
+	max-width: 800px;
+	padding: 10px;
+	margin: 0 auto;
+	border: 3px lightskyblue solid;
+	border-radius: 5px;
+}
