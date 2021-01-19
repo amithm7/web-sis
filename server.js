@@ -77,6 +77,21 @@ app.get('/api/logout', function (req, res) {
 	res.redirect('/');
 });
 
+// Get all Students
+app.get('/api/listStudents', function (req, res) {
+	if (!req.session.user) {
+		return res.status(401).send('Unauthorized');
+	}
+
+	connection.query("SELECT `ID`, `FIRST_NAME`, `LAST_NAME`, `SEX`, `MARKS_O`, `MARKS_T` FROM `STUDENT`" +
+		"ORDER BY `ID`, `FIRST_NAME`, `LAST_NAME`", function (err, result) {
+		if (err) {
+			return res.sendStatus(500);
+		}
+		res.status(200).json(result);
+	});
+});
+
 // Add Student
 app.post('/api/addStudent', function(req, res) {
 	if (!req.session.user) {

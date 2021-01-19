@@ -33,6 +33,63 @@ function showXHRResponseMsg(xhr, form) {
 	}
 }
 
+function expandSex(value) {
+	switch (value) {
+		case 'M':
+			return 'Male';
+		case 'F':
+			return 'Female';
+		case 'O':
+			return 'Other';
+		default:
+			return '-';
+	}
+}
+
+// Refresh Students List
+function refreshStudentsList () {
+	var home = document.getElementById('home');
+	var tableBody = home.querySelector('table tbody');
+
+	tableBody.innerHTML = "";
+
+	xhr = new XMLHttpRequest();
+	xhr.open("GET", "api/listStudents");
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onreadystatechange = function () {
+		showXHRResponseMsg(this, home);
+		if (this.readyState == 4 && this.status == 200) {
+			var studentsList = JSON.parse(this.responseText);
+
+			var tableHTML = "";
+			for (var i in studentsList) {
+				tableHTML += 
+					"<tr value=" + studentsList[i].ID + ">" +
+					"<td>" + studentsList[i].ID + "</td>" +
+					"<td>" + studentsList[i].FIRST_NAME + " " +
+						studentsList[i].LAST_NAME + "</td>" +
+					"<td>" + expandSex(studentsList[i].SEX) + "</td>" +
+					"<td>" + (studentsList[i].MARKS_O == null ? '-' : studentsList[i].MARKS_O) +
+						"/" + (studentsList[i].MARKS_O == null ? '-' : studentsList[i].MARKS_T) +
+						"</td>" +
+					"<td><button value=" + studentsList[i].ID +
+						" class=\"btn btn-primary\">View</button></td>" +
+					"<tr>";
+			}
+			tableBody.innerHTML = tableHTML;
+		}
+	};
+
+	showXHRSendingMsg(home);
+	xhr.send();
+}
+
+// Onload
+window.addEventListener('load', refreshStudentsList);
+
+// On click refresh
+document.querySelector('#home .refresh').addEventListener('click', refreshStudentsList);
+
 // Form Submit: Add Student
 document.querySelector('.add-student form').addEventListener('submit', function (ev) {
 	var form = document.querySelector('.add-student form');
@@ -73,18 +130,7 @@ document.querySelector('.add-marks-search').addEventListener('submit', function 
 
 			addMarksForm.querySelector('[name=firstName]').value = student[0].FIRST_NAME;
 			addMarksForm.querySelector('[name=lastName]').value = student[0].LAST_NAME;
-			addMarksForm.querySelector('[name=sex]').value = (function () {
-				switch (student[0].SEX) {
-					case 'M':
-						return 'Male';
-					case 'F':
-						return 'Female';
-					case 'O':
-						return 'Other';
-					default:
-						return '-';
-				}
-			})();
+			addMarksForm.querySelector('[name=sex]').value = expandSex(student[0].SEX);
 
 			// Form Submit: Add Marks Form
 			addMarksForm.addEventListener('submit', function (ev) {

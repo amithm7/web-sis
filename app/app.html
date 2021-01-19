@@ -31,6 +31,25 @@
 	<div class="tab-content">
 		<div class="tab-pane fade show active" id="home" role="tabpanel">
 			<h2 class="text-center display-6">Students Home</h2>
+			<button type="button" class="btn btn-outline-warning refresh">Refresh</button>
+			<table class="table text-center my-3">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Sex</th>
+						<th>Marks</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<div class="col-md-12 xhr-state text-center">
+				<span class="xhr-loading">--Loading--</span>
+				<span class="xhr-fail">
+					Error! <span class="res-msg"></span>
+				</span>
+			</div>
 		</div>
 		<div class="tab-pane fade" id="add-student" role="tabpanel">
 			<h2 class="text-center display-6" >Add a new Student</h2>
@@ -107,7 +126,7 @@
 					</div>
 					<button type="submit" class="col-md-2 btn btn-primary">Search</button>
 					<div class="col-md-12 xhr-state text-center">
-						<span class="xhr-loading">Sending data...</span>
+						<span class="xhr-loading">Searching</span>
 						<span class="xhr-fail">
 							Error! <span class="res-msg"></span>
 						</span>
