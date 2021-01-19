@@ -16,15 +16,19 @@ function showXHRResponseMsg(xhr, form) {
 				activeXHRState.classList.remove('active');
 			}
 			var successXHRState = form.querySelector('.xhr-state .xhr-success');
-			successXHRState.classList.add('active');
-			successXHRState.querySelector('.res-msg').innerHTML = xhr.responseText;
+			if (successXHRState) {
+				successXHRState.classList.add('active');
+				successXHRState.querySelector('.res-msg').innerHTML = xhr.responseText;
+			}
 		} else {
 			if (activeXHRState) {
 				activeXHRState.classList.remove('active');
 			}
 			var failXHRState = form.querySelector('.xhr-state .xhr-fail');
-			failXHRState.classList.add('active');
-			failXHRState.querySelector('.res-msg').innerHTML = xhr.responseText;
+			if (failXHRState) {
+				failXHRState.classList.add('active');
+				failXHRState.querySelector('.res-msg').innerHTML = xhr.responseText;
+			}
 		}
 	}
 }
@@ -62,6 +66,30 @@ document.querySelector('.add-marks-search').addEventListener('submit', function 
 	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.onreadystatechange = function() {
 		showXHRResponseMsg(this, form);
+
+		var addMarksForm = document.querySelector('.add-marks-form');
+		if (this.readyState == 4 && this.status == 200) {
+			var student = JSON.parse(this.responseText);
+
+			addMarksForm.querySelector('[name=firstName]').value = student[0].FIRST_NAME;
+			addMarksForm.querySelector('[name=lastName]').value = student[0].LAST_NAME;
+			addMarksForm.querySelector('[name=sex]').value = (function () {
+				switch (student[0].SEX) {
+					case 'M':
+						return 'Male';
+					case 'F':
+						return 'Female';
+					case 'O':
+						return 'Other';
+					default:
+						return '-';
+				}
+			})();
+
+			addMarksForm.classList.remove('hidden');
+		} else {
+			addMarksForm.classList.add('hidden');
+		}
 	};
 
 	showXHRSendingMsg(form);

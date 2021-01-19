@@ -133,11 +133,20 @@ app.post('/api/addMarksSearch', function(req, res) {
 			return res.sendStatus(500);
 		}
 
-		// If student record not found in the DB, add it
+		// If student not found in DB, else query and send basic details
 		if (result[0]['COUNT(*)'] == 0) {
 			return res.status(404).send("Student Not Found!");
 		} else {
-			res.status(200).send("Student with id = " + req.body.id + " Found!");
+			var studentWithIdSQL = "SELECT `FIRST_NAME`, `LAST_NAME`, `SEX` FROM `STUDENT` WHERE `ID` = " +
+				req.body.id + ";";
+			connection.query(studentWithIdSQL, function(err, result) {
+				if (err) {
+					return res.sendStatus(500);
+				}
+
+				console.log(result);
+				res.status(200).json(result);
+			});
 		}
 	});
 });
