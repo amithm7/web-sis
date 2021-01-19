@@ -17,3 +17,23 @@
 	border: 3px lightskyblue solid;
 	border-radius: 5px;
 }
+
+.xhr-state > * {
+	display: none;
+}
+
+.xhr-state .active {
+	display: inline;
+}
+
+.xhr-loading {
+	color: grey;
+}
+
+.xhr-success {
+	color: green;
+}
+
+.xhr-fail {
+	color: red;
+}

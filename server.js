@@ -3,22 +3,22 @@ var session = require("express-session");
 var mysql = require('mysql');
 
 // Creating mysql connection
-// var connection = mysql.createConnection({
-// 	host: 'localhost',
-// 	user: 'sisAPI',
-// 	password: 'password',
-// 	database: 'SIS',
-// 	multipleStatements: true,
-// 	timezone: 'utc'
-// });
-// connection.connect(function (err) {
-// 	if (!err) {
-// 		console.log("Database is connected ... \n\n");
-// 	} else {
-// 		console.log("Error connecting database ... \n\n");
-// 		// throw err;
-// 	}
-// });
+var connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'sisAPI',
+	password: 'password',
+	database: 'SIS',
+	multipleStatements: true,
+	timezone: 'utc'
+});
+connection.connect(function (err) {
+	if (!err) {
+		console.log("Database is connected ... \n\n");
+	} else {
+		console.log("Error connecting database ... \n\n");
+		// throw err;
+	}
+});
 
 var app = express();
 
@@ -75,4 +75,47 @@ app.post('/api/login', function (req, res) {
 app.get('/api/logout', function (req, res) {
 	req.session.destroy();
 	res.redirect('/');
+});
+
+// Add Student
+app.post('/api/addStudent', function(req, res) {
+	if (!req.session.user) {
+		return res.status(401).send('Unauthorized');
+	}
+
+	console.log(req.body);
+
+	// Check if this student exists in the DB
+	var studentExists = "SELECT COUNT(*) FROM STUDENT WHERE ID = \"" + req.body.id + "\";";
+	connection.query(studentExists, function (err, result) {
+		if (err) {
+			return res.sendStatus(500);
+		}
+
+		// If student record not found in the DB, add it
+		if (result[0]['COUNT(*)'] == 0) {
+			var newCustomerSQL = "INSERT INTO STUDENT (ID, FIRST_NAME, LAST_NAME, SEX, DOB, ADDRESS, CITY, STATE," + 
+				"PIN_CODE, PHONE) VALUES ('" +
+				req.body.id + "', '" +
+				req.body.firstName + "', '" +
+				req.body.lastName + "', '" +
+				req.body.sex + "', '" +
+				req.body.dob + "', '" +
+				req.body.address + "', '" +
+				req.body.city + "', '" +
+				req.body.state + "', " +
+				req.body.pincode + ", " +
+				req.body.phone + ");";
+			connection.query(newCustomerSQL, function (err, result) {
+				if (err) {
+					console.log(err);
+					return res.sendStatus(500);
+				}
+				console.log("New student added: " + req.body.id);
+				res.status(200).send("New Student Added!");
+			});
+		} else {
+			return res.status(500).send("Student Exists already!");
+		}
+	});
 });

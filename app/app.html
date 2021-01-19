@@ -38,15 +38,15 @@
 				<form class="row g-3 mx-3">
 					<div class="col-md-6">
 						<label class="form-label">First Name</label>
-						<input type="text" class="form-control" name="firstName">
+						<input type="text" class="form-control" name="firstName" required>
 					</div>
 					<div class="col-md-6">
 						<label class="form-label">Last Name</label>
-						<input type="text" class="form-control" name="lastName">
+						<input type="text" class="form-control" name="lastName" required>
 					</div>
 					<div class="col-md-5">
 						<label class="form-label">ID Number</label>
-						<input type="number" class="form-control" name="id">
+						<input type="number" class="form-control" name="id" required>
 					</div>
 					<div class="col-md-2">
 						<label class="form-label">Sex</label>
@@ -59,7 +59,7 @@
 					</div>
 					<div class="col-md-5">
 						<label class="form-label">Date of Birth</label>
-						<input type="date" class="form-control" name="dob">
+						<input type="date" class="form-control" name="dob" required>
 					</div>
 					<div class="col-md-12">
 						<label class="form-label">Address</label>
@@ -75,15 +75,24 @@
 					</div>
 					<div class="col-md-2">
 						<label class="form-label">PIN Code</label>
-						<input type="text" class="form-control" name="pincode">
+						<input type="text" class="form-control" name="pincode" required>
 					</div>
 					<div class="col-md-4">
 						<label class="form-label">Phone</label>
-						<input type="tel" class="form-control" name="phone" placeholder="+XX-XXXXXXXXXX">
+						<input type="tel" class="form-control" name="phone" placeholder="+XX-XXXXXXXXXX" required>
 					</div>
 					<div class="col-md-12">
 						<button type="submit" class="btn btn-primary">Submit</button>
 						<button type="reset" class="btn btn-outline-secondary">Reset</button>
+					</div>
+					<div class="col-md-12 xhr-state">
+						<span class="xhr-loading">Sending data...</span>
+						<span class="xhr-success">
+							Success! <span class="res-msg"></span>
+						</span>
+						<span class="xhr-fail">
+							Error! <span class="res-msg"></span>
+						</span>
 					</div>
 				</form>
 			</section>
@@ -138,5 +147,7 @@
 			</section>
 		</div>
 	</div>
+
+	<script src="static/js/app.js"></script>
 </body>
 </html>
