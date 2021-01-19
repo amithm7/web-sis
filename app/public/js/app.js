@@ -52,3 +52,21 @@ document.querySelector('.add-student form').addEventListener('submit', function 
 
 	ev.preventDefault();
 });
+
+// Form Submit: Add Marks Search
+document.querySelector('.add-marks-search').addEventListener('submit', function (ev) {
+	var form = document.querySelector('.add-marks-search');
+
+	xhr = new XMLHttpRequest();
+	xhr.open("POST", "api/addMarksSearch");
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.onreadystatechange = function() {
+		showXHRResponseMsg(this, form);
+	};
+
+	showXHRSendingMsg(form);
+	console.log('Sending ' + JSON.stringify({ id: form.id.value }));
+	xhr.send(JSON.stringify({ id: form.id.value }));
+
+	ev.preventDefault();
+});

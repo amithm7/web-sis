@@ -119,3 +119,25 @@ app.post('/api/addStudent', function(req, res) {
 		}
 	});
 });
+
+// Add Marks Search by id
+app.post('/api/addMarksSearch', function(req, res) {
+	if (!req.session.user) {
+		return res.status(401).send('Unauthorized');
+	}
+
+	// Check if this student exists in the DB
+	var studentExists = "SELECT COUNT(*) FROM STUDENT WHERE ID = \"" + req.body.id + "\";";
+	connection.query(studentExists, function (err, result) {
+		if (err) {
+			return res.sendStatus(500);
+		}
+
+		// If student record not found in the DB, add it
+		if (result[0]['COUNT(*)'] == 0) {
+			return res.status(404).send("Student Not Found!");
+		} else {
+			res.status(200).send("Student with id = " + req.body.id + " Found!");
+		}
+	});
+});

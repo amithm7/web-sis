@@ -106,8 +106,14 @@
 						<input type="number" class="col-md-8 form-control" name="id">
 					</div>
 					<button type="submit" class="col-md-2 btn btn-primary">Search</button>
-					<div class="col-md-12 error-msg hidden text-center">
-						<p>Student Not found!</p>
+					<div class="col-md-12 xhr-state text-center">
+						<span class="xhr-loading">Sending data...</span>
+						<span class="xhr-success">
+							Success! <span class="res-msg"></span>
+						</span>
+						<span class="xhr-fail">
+							Error! <span class="res-msg"></span>
+						</span>
 					</div>
 				</form>
 				<from class="add-marks-form row g-3 hidden m-3">
