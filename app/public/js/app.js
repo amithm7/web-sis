@@ -86,6 +86,25 @@ document.querySelector('.add-marks-search').addEventListener('submit', function 
 				}
 			})();
 
+			// Form Submit: Add Marks Form
+			addMarksForm.addEventListener('submit', function (ev) {
+				xhr = new XMLHttpRequest();
+				xhr.open("POST", "api/addMarksForm");
+				xhr.setRequestHeader("Content-type", "application/json");
+				xhr.onreadystatechange = function() {
+					showXHRResponseMsg(this, addMarksForm);
+				};
+
+				showXHRSendingMsg(addMarksForm);
+				xhr.send(JSON.stringify({
+					id: form.id.value,
+					marksO: addMarksForm.marksObtained.value,
+					marksT: addMarksForm.marksTotal.value
+				}));
+
+				ev.preventDefault();
+			});
+
 			addMarksForm.classList.remove('hidden');
 		} else {
 			addMarksForm.classList.add('hidden');

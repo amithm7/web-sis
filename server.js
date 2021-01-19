@@ -150,3 +150,36 @@ app.post('/api/addMarksSearch', function(req, res) {
 		}
 	});
 });
+
+// Add Marks Form data
+app.post('/api/addMarksForm', function(req, res) {
+	if (!req.session.user) {
+		return res.status(401).send('Unauthorized');
+	}
+
+	console.log(req.body);
+
+	// Check if this student exists in the DB
+	var studentExists = "SELECT COUNT(*) FROM STUDENT WHERE ID = \"" + req.body.id + "\";";
+	connection.query(studentExists, function (err, result) {
+		if (err) {
+			return res.sendStatus(500);
+		}
+
+		// If student not found in DB, else query and send basic details
+		if (result[0]['COUNT(*)'] == 0) {
+			return res.status(404).send("Student ID Not Found!");
+		} else {
+			var marksUpdateSQL = "UPDATE `STUDENT` SET `MARKS_O` = " + req.body.marksO +
+				", `MARKS_T` = " + req.body.marksT + " WHERE `ID` = " + req.body.id + ";";
+			connection.query(marksUpdateSQL, function (err, result) {
+				if (err) {
+					console.log(err);
+					return res.sendStatus(500);
+				}
+				console.log("Marks updated for ID: " + req.body.id);
+				res.status(200).send("Marks updated for ID: " + req.body.id);
+			});
+		}
+	});
+});

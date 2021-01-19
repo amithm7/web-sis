@@ -113,7 +113,7 @@
 						</span>
 					</div>
 				</form>
-				<from class="add-marks-form row g-3 hidden m-3">
+				<form class="add-marks-form row g-3 hidden m-3">
 					<div class="col-md-5">
 						<div class="input-group">
 							<span class="input-group-text">First Name</span>
@@ -134,19 +134,28 @@
 					<div class="col-md-6">
 						<div class="input-group">
 							<span class="input-group-text">Marks Obtained</span>
-							<input type="number" class="form-control" name="marksObtained">
+							<input type="number" class="form-control" name="marksObtained" required>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="input-group">
 							<span class="input-group-text">Marks Total</span>
-							<input type="number" class="form-control" name="marksTotal">
+							<input type="number" class="form-control" name="marksTotal" required>
 						</div>
 					</div>
 					<div class="col-md-12 text-center">
 						<button type="submit" class="btn btn-primary">Enter</button>
 					</div>
-				</from>
+					<div class="col-md-12 xhr-state">
+						<span class="xhr-loading">Sending data...</span>
+						<span class="xhr-success">
+							Success! <span class="res-msg"></span>
+						</span>
+						<span class="xhr-fail">
+							Error! <span class="res-msg"></span>
+						</span>
+					</div>
+				</form>
 			</section>
 		</div>
 	</div>
