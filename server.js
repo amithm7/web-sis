@@ -135,6 +135,35 @@ app.post('/api/addStudent', function(req, res) {
 	});
 });
 
+app.post('/api/deleteStudent', function(req, res) {
+	if (!req.session.user) {
+		return res.status(401).send('Unauthorized');
+	}
+
+	// Check if this student exists in the DB
+	var studentExists = "SELECT COUNT(*) FROM STUDENT WHERE ID = \"" + req.body.id + "\";";
+	connection.query(studentExists, function (err, result) {
+		if (err) {
+			return res.sendStatus(500);
+		}
+
+		// If student not found in DB, else delete it
+		if (result[0]['COUNT(*)'] == 0) {
+			return res.status(404).send("Student Not Found!");
+		} else {
+			var deleteIdSQL = "DELETE FROM `STUDENT` WHERE `ID` = " + req.body.id + ";";
+			connection.query(deleteIdSQL, function (err, result) {
+				if (err) {
+					console.log(err);
+					return res.sendStatus(500);
+				}
+
+				res.sendStatus(200);
+			});
+		}
+	});
+});
+
 // Add Marks Search by id
 app.post('/api/addMarksSearch', function(req, res) {
 	if (!req.session.user) {

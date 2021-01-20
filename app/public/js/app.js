@@ -72,11 +72,37 @@ function refreshStudentsList () {
 					"<td>" + (studentsList[i].MARKS_O == null ? '-' : studentsList[i].MARKS_O) +
 						"/" + (studentsList[i].MARKS_O == null ? '-' : studentsList[i].MARKS_T) +
 						"</td>" +
-					"<td><button value=" + studentsList[i].ID +
-						" class=\"btn btn-primary\">View</button></td>" +
-					"<tr>";
+					"<td><button name=\"view\" value=" + studentsList[i].ID +
+						" class=\"btn btn-primary btn-sm mx-1\">View</button>" + 
+						"<button name=\"delete\" value=" + studentsList[i].ID +
+						" class=\"btn btn-danger btn-sm mx-1\">Delete</button></td>" +
+					"</tr>";
 			}
 			tableBody.innerHTML = tableHTML;
+
+			tableBody.querySelectorAll('[name=delete]').forEach(function (deleteID) {
+				deleteID.addEventListener('click', function() {
+					var sure = confirm("Are you sure, you want to delete student with ID = " + deleteID.value + "?");
+					if (sure) {
+						xhr = new XMLHttpRequest();
+						xhr.open("POST", "api/deleteStudent");
+						xhr.setRequestHeader("Content-type", "application/json");
+						xhr.onreadystatechange = function() {
+							if (this.readyState == 4) {
+								if (this.status == 200) {
+									alert("Student with ID = " + deleteID.value + " deleted!");
+									refreshStudentsList();
+								} else {
+									console.log(this.responseText);
+									alert("Error deleting ID = " + deleteID.value + " : " + this.responseText);
+								}
+							}
+						};
+
+						xhr.send(JSON.stringify({ id: deleteID.value }));
+					}
+				});
+			});
 		}
 	};
 
