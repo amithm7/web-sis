@@ -73,13 +73,53 @@ function refreshStudentsList () {
 						"/" + (studentsList[i].MARKS_O == null ? '-' : studentsList[i].MARKS_T) +
 						"</td>" +
 					"<td><button name=\"view\" value=" + studentsList[i].ID +
-						" class=\"btn btn-primary btn-sm mx-1\">View</button>" + 
+						" class=\"btn btn-primary btn-sm m-1\">View</button>" + 
 						"<button name=\"delete\" value=" + studentsList[i].ID +
-						" class=\"btn btn-danger btn-sm mx-1\">Delete</button></td>" +
+						" class=\"btn btn-danger btn-sm m-1\">Delete</button></td>" +
 					"</tr>";
 			}
 			tableBody.innerHTML = tableHTML;
 
+			// On click view details of student
+			tableBody.querySelectorAll('[name=view').forEach(function (viewID) {
+				viewID.addEventListener('click', function() {
+					xhr = new XMLHttpRequest();
+					xhr.open("POST", "api/viewStudent");
+					xhr.setRequestHeader("Content-type", "application/json");
+					xhr.onreadystatechange = function () {
+						if (this.readyState == 4) {
+							if (this.status == 200) {
+								var student = JSON.parse(this.responseText)[0];
+								console.log(student);
+
+								tableHTML = "";
+								tableHTML +=
+									"<tr><td>ID</td><td>" + student.ID + "</td></tr>" +
+									"<tr><td>First Name</td><td>" + student.FIRST_NAME + "</td></tr>" +
+									"<tr><td>Last Name</td><td>" + student.LAST_NAME + "</td></tr>" +
+									"<tr><td>Sex</td><td>" + expandSex(student.SEX) + "</td></tr>" +
+									"<tr><td>Date Of Birth</td><td>" + (student.DOB).split('T')[0] + "</td></tr>" +
+									"<tr><td>Address</td><td>" + student.ADDRESS + ", " + student.CITY + ", " +
+										student.STATE + " - " + student.PIN_CODE + "</td></tr>" +
+									"<tr><td>Marks</td><td>" + (student.MARKS_O == null ? '-' : student.MARKS_O) +
+										"/" + (student.MARKS_O == null ? '-' : student.MARKS_T) + "</td></tr>";
+
+								var studentModal = document.querySelector('#home .modal');
+								studentModal.querySelector('.table').innerHTML = tableHTML;
+
+								(new bootstrap.Modal(studentModal)).show();
+							} else {
+								console.log(this.responseText);
+								alert("Error retrieving details for ID = " + viewID.value + " : " + this.responseText);
+							}
+						}
+					};
+
+					xhr.send(JSON.stringify({ id: viewID.value }));
+				});
+			});
+
+			// On click delete student
 			tableBody.querySelectorAll('[name=delete]').forEach(function (deleteID) {
 				deleteID.addEventListener('click', function() {
 					var sure = confirm("Are you sure, you want to delete student with ID = " + deleteID.value + "?");

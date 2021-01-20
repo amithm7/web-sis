@@ -135,6 +135,37 @@ app.post('/api/addStudent', function(req, res) {
 	});
 });
 
+// All details of a Student
+app.post('/api/viewStudent', function(req, res) {
+	if (!req.session.user) {
+		return res.status(401).send('Unauthorized');
+	}
+
+	// Check if this student exists in the DB
+	var studentExists = "SELECT COUNT(*) FROM STUDENT WHERE ID = \"" + req.body.id + "\";";
+	connection.query(studentExists, function (err, result) {
+		if (err) {
+			return res.sendStatus(500);
+		}
+
+		// If student not found in DB, else query and send all details
+		if (result[0]['COUNT(*)'] == 0) {
+			return res.status(404).send("Student Not Found!");
+		} else {
+			var studentWithIdSQL = "SELECT * FROM `STUDENT` WHERE `ID` = " + req.body.id + ";";
+			connection.query(studentWithIdSQL, function (err, result) {
+				if (err) {
+					return res.sendStatus(500);
+				}
+
+				console.log(result);
+				res.status(200).json(result);
+			});
+		}
+	});
+});
+
+// Delete a Student
 app.post('/api/deleteStudent', function(req, res) {
 	if (!req.session.user) {
 		return res.status(401).send('Unauthorized');
