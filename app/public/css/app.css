@@ -1,3 +1,18 @@
+body {
+	background-image: url('/static/img/login.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+body > * {
+	background-color: floralwhite;
+}
+
+.tab-pane {
+	padding: 20px;
+}
+
 .hidden {
 	display: none;
 }
@@ -14,7 +29,7 @@
 	border-radius: 5px;
 }
 
-.xhr-state > * {
+.xhr-state>* {
 	display: none;
 }
 

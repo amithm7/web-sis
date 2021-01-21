@@ -1,11 +1,24 @@
+body {
+	background-color: oldlace;
+}
+
 .welcome {
 	padding: 1em;
 	text-align: center;
+	background-color: moccasin;
+	border-radius: 50px;
 }
 
 .entryForm {
 	max-width: 400px;
 	margin: 0 auto;
+}
+
+.entryForm form {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .form-actions {

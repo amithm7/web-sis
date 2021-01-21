@@ -14,7 +14,13 @@
 	<link rel="stylesheet" href="static/css/app.css">
 </head>
 <body>
-	<ul class="nav nav-tabs">
+	<header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 border-bottom shadow-sm">
+		<p class="h5 my-0 me-md-auto fw-normal">Student Information System</p>
+		<form action="/api/logout" class="logoutForm nav-item">
+			<button class="btn btn-outline-danger nav-link" type="submit">Logout</button>
+		</form>
+	</header>
+	<ul class="nav nav-tabs my-md-0">
 		<li class="nav-item">
 			<a class="nav-link active" data-bs-toggle="tab" href="#home">Home</a>
 		</li>
@@ -24,9 +30,6 @@
 		<li class="nav-item">
 			<a class="nav-link" data-bs-toggle="tab" href="#add-marks">Update Marks</a>
 		</li>
-		<form action="/api/logout" class="logoutForm nav-item">
-			<button class="btn btn-outline-danger nav-link" type="submit">Logout</button>
-		</form>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane fade show active" id="home" role="tabpanel">
@@ -191,6 +194,18 @@
 			</section>
 		</div>
 	</div>
+	<footer class="p-3">
+		<div class="row">
+			<div class="col-6">
+				<small class="d-block mb-3 text-muted">2020-2021</small>
+			</div>
+			<div class="col-6 text-muted">
+				<span style="font-size: xx-small; float: right;">Background image by <a href="https://unsplash.com/@mclee?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank">MChe
+					Lee</a> on <a
+						href="https://unsplash.com/" target="_blank">Unsplash</a></span>
+			</div>
+		</div>
+	</footer>
 
 	<script src="static/js/app.js"></script>
 </body>
