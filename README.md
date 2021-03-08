@@ -2,6 +2,8 @@
 
 A simple application to manage student information in schools and colleges.
 
+![Peek 2021-03-08 18-39](https://user-images.githubusercontent.com/7036770/110326022-1dba2c00-803e-11eb-937f-615147365afa.gif)
+
 ## Requirements
 
 - [NodeJS](https://nodejs.org)
